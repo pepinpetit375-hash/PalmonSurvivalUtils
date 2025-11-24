@@ -1511,8 +1511,8 @@ function copyToClipboard() {
             const defense = parseInt(document.getElementById('palDefense').value) || 0;
             const hp = parseInt(document.getElementById('palHP').value) || 0;
             const power = parseInt(document.getElementById('palPower').value) || 0;
-            const role = document.querySelector('input[name="pal_role"]:checked').value.toLowerCase();
-			const element = document.querySelector('input[name="pal_element"]:checked').value.toLowerCase();
+            const role = document.querySelector('input[name="pal_role"]:checked').value;
+			const element = document.querySelector('input[name="pal_element"]:checked').value;
             
             if (!name) {
                 alert('Please enter a pal name!');
