@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en" data-lt-installed="true" class=" idc0_343 wbsjqu"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -116,7 +116,7 @@
         
         .container {
             width: 100%;
-            max-width: 750px;
+            max-width: 800px;
             background-color: white;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -444,6 +444,7 @@
         }
         
         .role-badge {
+            white-space: nowrap;
             display: inline-block;
             padding: 4px 12px;
             border-radius: 12px;
@@ -453,11 +454,11 @@
         }
         
         .role-badge.tank {
-            background: #4CAF50;
+            background: #0096A0;
         }
         
         .role-badge.dps {
-            background: #FF9800;
+            background: #C84616;
         }
         
         .delete-btn {
@@ -652,6 +653,7 @@
 
 		.switch-field label:first-of-type {
 			border-radius: 4px 0 0 4px;
+			border-right-width: 2px;
 		}
 
 		.switch-field label:last-of-type {
@@ -673,49 +675,45 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .element-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        .element-btn.water input.elementalClass:checked + label {
+         input:checked + label.water {
             background: linear-gradient(135deg, #4FC3F7 0%, #0288D1 100%);
             color: white;
             border-color: #0288D1;
             box-shadow: 0 4px 12px rgba(2, 136, 209, 0.4);
         }
         
-        .element-btn.active.fire {
+        input:checked + label.fire {
             background: linear-gradient(135deg, #FF7043 0%, #D32F2F 100%);
             color: white;
             border-color: #D32F2F;
             box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
         }
         
-        .element-btn.active.earth {
+        input:checked + label.earth {
             background: linear-gradient(135deg, #8D6E63 0%, #5D4037 100%);
             color: white;
             border-color: #5D4037;
             box-shadow: 0 4px 12px rgba(93, 64, 55, 0.4);
         }
         
-        .element-btn.active.electric {
+        input:checked + label.electric {
             background: linear-gradient(135deg, #FFD54F 0%, #F57C00 100%);
             color: white;
             border-color: #F57C00;
             box-shadow: 0 4px 12px rgba(245, 124, 0, 0.4);
         }
         
-        .element-badge {
+		.element-badge {
             display: inline-block;
+			white-space: nowrap;
             padding: 4px 12px;
             border-radius: 12px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
             color: white;
             margin-left: 5px;
         }
-        
+				
         .element-badge.water {
             background: linear-gradient(135deg, #4FC3F7 0%, #0288D1 100%);
         }
@@ -916,18 +914,18 @@
 					<label for="roles">Role:</label>
 					<div id="roles" class="switch-field">
 						<input type="radio" id="radio-tank" name="pal_role" value="Tank"/>
-						<label for="radio-tank">Tank</label>
+						<label for="radio-tank">🛡️ Tank</label>
 						<input type="radio" id="radio-dps" name="pal_role" value="DPS" checked/>
-						<label for="radio-dps">DPS</label>
+						<label for="radio-dps">⚔️ DPS</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label>Element Type:</label>
-					<div>
-						<input type="radio" name="pal_element" id="radio-water" class="switch-field" data-element="Water" id="btnWater" checked/><label for="radio-water" class="element-btn water">💧 Water</label>
-						<input type="radio" name="pal_element" id="radio-fire" class="element-btn fire" data-element="Fire" id="btnFire"/><label for="radio-fire">🔥 Fire</label>
-						<input type="radio" name="pal_element" id="radio-earth" class="element-btn earth" data-element="Earth" id="btnEarth"/><label for="radio-earth">🌍 Earth</label>
-						<input type="radio" name="pal_element" id="radio-electric" class="element-btn electric" data-element="Electric" id="btnElectric"/><label for="radio-electric">⚡ Electric</label>
+					<div class="switch-field">
+						<input type="radio" name="pal_element" id="radio-water" value="Water" checked/><label class="water" for="radio-water">💧 Water</label>
+						<input type="radio" name="pal_element" id="radio-fire" value="Fire"/><label class="fire" for="radio-fire">🔥 Fire</label>
+						<input type="radio" name="pal_element" id="radio-earth" value="Earth"/><label class="earth" for="radio-earth">🌍 Earth</label>
+						<input type="radio" name="pal_element" id="radio-electric" value="Electric"/><label class="electric" for="radio-electric">⚡ Electric</label>
 					</div>
 				</div>
             <button id="addPalBtn">Add Pal</button>
@@ -1454,13 +1452,24 @@ function copyToClipboard() {
 		
 		  // Get element icon
         function getElementIcon(element) {
+		const lcElement = element.toLowerCase()
             const icons = {
-                'Water': '💧',
-                'Fire': '🔥',
-                'Earth': '🌍',
-                'Electric': '⚡'
+                'water': '💧',
+                'fire': '🔥',
+                'earth': '🌍',
+                'electric': '⚡'
             };
-            return icons[element] || '';
+            return icons[lcElement] || '';
+        }
+		
+		// Get role icon
+        function getRoleIcon(element) {
+			const lcRole = element.toLowerCase()
+            const icons = {
+                'dps': '⚔️',
+                'tank': '🛡️'
+            };
+            return icons[lcRole] || '';
         }
 
 // Render pals table
@@ -1484,7 +1493,7 @@ function copyToClipboard() {
                     <td class="center">${pal.defense}</td>
                     <td class="center">${pal.hp}</td>
                     <td class="center">${pal.power}</td>
-                    <td class="center"><span class="role-badge ${pal.role.toLowerCase()}">${pal.role}</span></td>
+                    <td class="center"><span class="role-badge ${pal.role.toLowerCase()}">${getRoleIcon(pal.role)} ${pal.role}</span></td>
                     <td class="center"><span class="element-badge ${elementClass}">${getElementIcon(pal.element)} ${pal.element}</span></td>
                     <td class="center">
                         <button class="delete-btn" onclick="deletePal(${index})">Delete</button>
@@ -1501,7 +1510,8 @@ function copyToClipboard() {
             const defense = parseInt(document.getElementById('palDefense').value) || 0;
             const hp = parseInt(document.getElementById('palHP').value) || 0;
             const power = parseInt(document.getElementById('palPower').value) || 0;
-            const role = document.querySelector('input[name="pal_role"]:checked').value;
+            const role = document.querySelector('input[name="pal_role"]:checked').value.toLowerCase();
+			const element = document.querySelector('input[name="pal_element"]:checked').value.toLowerCase();
             
             if (!name) {
                 alert('Please enter a pal name!');
@@ -1509,7 +1519,7 @@ function copyToClipboard() {
             }
             
             const pals = loadPals();
-            pals.push({ name, attack, defense, hp, power, role });
+            pals.push({ name, attack, defense, hp, power, role, element });
             savePals(pals);
             
             // Clear form
@@ -1520,9 +1530,11 @@ function copyToClipboard() {
             document.getElementById('palPower').value = '';
 			document.getElementById('radio-tank').checked = false;
             document.getElementById('radio-dps').checked = true;
-            
-            renderPalsTable();
-            
+			document.getElementById('radio-water').checked = true;
+			document.getElementById('radio-fire').checked = false;
+			document.getElementById('radio-earth').checked = false;
+			document.getElementById('radio-electric').checked = false;
+			
             // Focus back to name field for quick entry
             document.getElementById('palName').focus();
         }
@@ -1602,5 +1614,3 @@ function copyToClipboard() {
             document.getElementById('palName').focus();
         });
     </script>
-  </body>
-</html>
