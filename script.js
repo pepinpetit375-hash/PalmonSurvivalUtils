@@ -613,13 +613,13 @@ function findOptimalSquad(pals) {
 
 // Calculate squads
 async function calculateSquads() {
+	const pals = loadPals();
 	gtag('event', 'calculate_squads', {
   		event_category: 'squad_calculator',
   		event_label: 'Calculate Optimal Squads clicked',
 		value: pals.length
-	});
-    const pals = loadPals();
-    
+	});  
+	
     if (pals.length < 7) {
 		showModalConfirm('You need at least 7 pals to generate squads!', "Warning");
         return;
