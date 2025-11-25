@@ -262,7 +262,7 @@ function copyToClipboard() {
     const colors = selectedSet === "Custom" ? customColors : colorSets[selectedSet];
     
     if (colors.length === 0) {
-        alert("Please add at least one color to the custom set first!");
+		showModalConfirm("Please add at least one color to the custom set first!", "Error");
         return;
     }
     
@@ -309,7 +309,7 @@ function copyToClipboard() {
         }, 2000);
     }).catch(err => {
         console.error('Failed to copy: ', err);
-        alert('Failed to copy to clipboard. Please try again.');
+		showModalConfirm('Failed to copy to clipboard. Please try again.', "Error");
     });
 }
 
@@ -335,6 +335,10 @@ window.addEventListener('resize', refreshText);
 // ========================================================
 
 const STORAGE_KEY = 'palmonPals';
+
+function formatNumber(num) {
+    return num.toLocaleString('en-US'); // 1,234,567
+}
 
 // Load pals from localStorage
 function loadPals() {
@@ -385,10 +389,10 @@ function renderPalsTable() {
         const elementClass = pal.element.toLowerCase();
         row.innerHTML = `
             <td class="name">${pal.name}</td>
-            <td class="center">${pal.attack}</td>
-            <td class="center">${pal.defense}</td>
-            <td class="center">${pal.hp}</td>
-            <td class="center">${pal.power}</td>
+            <td class="center">${formatNumber(pal.attack)}</td>
+            <td class="center">${formatNumber(pal.defense)}</td>
+            <td class="center">${formatNumber(pal.hp)}</td>
+            <td class="center">${formatNumber(pal.power)}</td>
             <td class="center"><span class="role-badge ${pal.role.toLowerCase()}">${getRoleIcon(pal.role)} ${pal.role}</span></td>
             <td class="center"><span class="element-badge ${elementClass}">${getElementIcon(pal.element)} ${pal.element}</span></td>
             <td class="center">
@@ -410,7 +414,7 @@ function addPal() {
     const element = document.querySelector('input[name="pal_element"]:checked').value;
     
     if (!name) {
-        alert('Please enter a pal name!');
+		showModalConfirm('Please enter a pal name!', "Error");
         return;
     }
     
@@ -436,13 +440,14 @@ function addPal() {
 }
 
 // Delete pal
-function deletePal(index) {
-    if (confirm('Are you sure you want to delete this pal?')) {
-        const pals = loadPals();
-        pals.splice(index, 1);
-        savePals(pals);
-        renderPalsTable();
-    }
+async function deletePal(index) {
+	const ok = await showModalConfirm("Delete this pal?", "Delete Pal");
+	if (!ok) return;
+	
+    const pals = loadPals();
+    pals.splice(index, 1);
+    savePals(pals);
+    renderPalsTable();    
 }
 
 // Calculate combinations count
@@ -471,19 +476,19 @@ function fillSquadListElement(squad, listElement, statsElement, stats) {
     statsElement.innerHTML = `
         <div class="stat-row">
             <span class="stat-label">⚔️ Total Attack:</span>
-            <span class="stat-value">${Math.round(stats.attack)}</span>
+            <span class="stat-value">${formatNumber(Math.round(stats.attack))}</span>
         </div>
         <div class="stat-row">
             <span class="stat-label">🛡️ Total Defense:</span>
-            <span class="stat-value">${Math.round(stats.defense)}</span>
+            <span class="stat-value">${formatNumber(Math.round(stats.defense))}</span>
         </div>
         <div class="stat-row">
             <span class="stat-label">❤️ Total HP:</span>
-            <span class="stat-value">${Math.round(stats.hp)}</span>
+            <span class="stat-value">${formatNumber(Math.round(stats.hp))}</span>
         </div>
         <div class="stat-row">
             <span class="stat-label">⚡ Total Power:</span>
-            <span class="stat-value">${Math.round(stats.power)}</span>
+            <span class="stat-value">${formatNumber(Math.round(stats.power))}</span>
         </div>
     `;
 }
@@ -603,11 +608,11 @@ function findOptimalSquad(pals) {
 }
 
 // Calculate squads
-function calculateSquads() {
+async function calculateSquads() {
     const pals = loadPals();
     
     if (pals.length < 7) {
-        alert('You need at least 7 pals to generate squads!');
+		showModalConfirm('You need at least 7 pals to generate squads!', "Warning");
         return;
     }
     
@@ -616,7 +621,9 @@ function calculateSquads() {
     
     if (combCount > 100000) {
         warningDiv.style.display = 'block';
-        if (!confirm(`This will calculate ${combCount.toLocaleString()} combinations and may take a while. Continue?`)) {
+		
+		const ok = await showModalConfirm(`This will calculate ${combCount.toLocaleString()} combinations and may take a while. Continue?`, "Warning");
+		if (!ok) {
             warningDiv.style.display = 'none';
             return;
         }
@@ -629,7 +636,7 @@ function calculateSquads() {
         const squads = findOptimalSquad(pals);
         
         if (!squads) {
-            alert('Not enough unique pals to generate squads!');
+			showModalConfirm('Not enough unique pals to generate squads!', "Error");
             warningDiv.style.display = 'none';
             return;
         }
@@ -672,6 +679,32 @@ function calculateSquads() {
     }, 100);
 }
 
+function showModalConfirm(message, title = "Confirm") {
+    return new Promise(resolve => {
+        const overlay = document.getElementById("modalOverlay");
+        const msg = document.getElementById("modalMessage");
+        const ttl = document.getElementById("modalTitle");
+
+        ttl.textContent = title;
+        msg.textContent = message;
+
+        overlay.style.display = "flex";
+
+        const confirmBtn = document.getElementById("modalConfirm");
+        const cancelBtn = document.getElementById("modalCancel");
+
+        const close = (value) => {
+            overlay.style.display = "none";
+            confirmBtn.onclick = null;
+            cancelBtn.onclick = null;
+            resolve(value);
+        };
+
+        confirmBtn.onclick = () => close(true);
+        cancelBtn.onclick = () => close(false);
+    });
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize text generator
@@ -695,4 +728,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     document.getElementById('palName').focus();
+});
+
+document.querySelectorAll('.collapsible-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            btn.textContent = "Show Calculation Details ▼";
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            btn.textContent = "Hide Calculation Details ▲";
+        }
+    });
 });
