@@ -255,6 +255,10 @@ function updateCustomColorsDisplay() {
 
 // Copy to clipboard
 function copyToClipboard() {
+	gtag('event', 'copy_colored_text_to_clipboard', {
+  		event_category: 'squad_calculator',
+  		event_label: 'Copy to clipboard clicked'
+	});
     const text = textInput.value;
     if (!text) return;
     
