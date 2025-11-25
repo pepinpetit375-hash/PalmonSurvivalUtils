@@ -615,7 +615,7 @@ function findOptimalSquad(pals) {
 async function calculateSquads() {
 	gtag('event', 'calculate_squads', {
   		event_category: 'squad_calculator',
-  		event_label: 'Calculate Optimal Squads clicked'
+  		event_label: 'Calculate Optimal Squads clicked',
 		value: pals.length
 	});
     const pals = loadPals();
