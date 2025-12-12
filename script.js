@@ -1,1078 +1,791 @@
-/* Global Styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-input[type="text"],
-input[type="number"],
-select {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: border-color 0.3s;
-    -moz-appearance: textfield;
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus,
-select:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-select {
-    cursor: pointer;
-    background-color: white;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-/* Navigation Bar */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
-    padding: 15px 30px;
-    display: flex;
-    gap: 15px;
-    backdrop-filter: blur(10px);
-    z-index: 99;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.1);
-    font-size: 15px;
-    position: relative;
-    overflow: hidden;
-}
-
-.navbar a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.navbar a:hover::before {
-    left: 100%;
-}
-
-.navbar a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.navbar a.active {
-    background: white;
-    color: #667eea;
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
-}
-
-/* Page Container */
-.page {
-    display: none;
-    width: 100%;
-}
-
-.page.active {
-    display: block;
-}
-
-.container {
-    width: 100%;
-    max-width: 800px;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    padding: 30px;
-    box-sizing: border-box;
-    margin: auto;
-    margin-top: 80px;
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-}
-
-h1 {
-    color: white;
-    margin: 0;
-    font-size: 28px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    line-height: 1.3;
-}
-
-/* --- DOWNLOADS PAGE STYLES --- */
-
-.download-section {
-    margin: 30px 0;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-}
-
-.section-title {
-    color: #2c3e50; /* Dark blue/gray */
-    margin-top: 0;
-    border-bottom: 2px solid #3498db; /* A blue line for emphasis */
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-}
-
-/* Primary Download Button Style */
-.download-all-btn {
-    display: inline-block;
-    padding: 12px 25px;
-    margin: 15px 0 20px 0;
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #2ecc71; /* Green color for action/download */
-    border: none;
-    border-radius: 5px;
-    text-decoration: none; /* Remove underline from <a> tag */
-    text-align: center;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.download-all-btn:hover {
-    background-color: #27ae60; /* Darker green on hover */
-}
-
-.img-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 500;
-}
-
-.img-modal img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 8px;
-}
-
-.img-modal span {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 40px;
-    color: white;
-    cursor: pointer;
-}
-
-/* Individual File List */
-.file-list {
-    list-style-type: none;
-    padding-left: 0;
-    max-height: 200px; /* Limit height for organization */
-    overflow-y: auto; /* Enable scrolling if list is too long */
-    border: 1px solid #eee;
-    padding: 10px;
-    border-radius: 4px;
-    background-color: #fff;
-}
-
-.file-list li {
-    padding: 5px 0;
-    border-bottom: 1px dotted #eee;
-    font-size: 0.95em;
-}
-
-.file-list li a {
-    color: #3498db;
-    text-decoration: none;
-}
-
-.file-list li a:hover {
-    text-decoration: underline;
-}
-
-/* --- IMAGE PREVIEW STYLES --- */
-
-/* Reusing existing collapsible styles from Squad Page */
-.collapsible-tip {
-    margin-top: 20px;
-}
-
-.collapsible-toggle {
-    /* Style to match your existing button for the collapsible area */
-    background-color: #ecf0f1;
-    color: #333;
-    cursor: pointer;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 1em;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.collapsible-toggle:hover {
-    background-color: #dcdde1;
-}
-
-.collapsible-content {
-    padding: 15px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-    overflow: hidden;
-}
-
-.preview-note {
-    font-style: italic;
-    color: #777;
-    margin-top: 15px;
-    text-align: center;
-}
-
-/* Image Grid */
-.image-preview-grid {
-    display: grid;
-    /* Adjust based on screen size, e.g., 5 columns */
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
-    gap: 15px;
-    padding: 10px;
-    overflow-y: auto;
-    border: 2px solid #ddd; /* A subtle border for the container */
-    border-radius: 8px;
-    background-color: #f0f4f8; /* Very light blue background */
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
- }
- 
- .image-preview-item {
-    text-align: center;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    padding: 5px;
-    background-color: #f7f7f7;
-    transition: transform 0.2s;
-}
-
-.image-preview-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.image-preview-item img {
-    width: 100%;
-    height: auto;
-    max-height: 80px;
-    object-fit: contain; /* Ensure the image fits nicely */
-    display: block;
-    margin-bottom: 5px;
-}
-
-.image-preview-item span {
-    display: block;
-    font-size: 0.8em;
-    color: #555;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.author {
-    color: rgba(255, 255, 255, 0.9);
-    font-style: italic;
-    margin-top: 8px;
-    font-size: 14px;
-}
-
-/* Form Elements */
-.form-group {
-    margin-bottom: 10px;
-}
-
-label {
-    display: block;
-    font-weight: 600;
-    color: #333;
-}
-
-textarea {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    box-sizing: border-box;
-    margin-top: 8px;
-    resize: vertical;
-    min-height: 100px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: border-color 0.3s;
-}
-
-textarea:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-.form-group label input[type="checkbox"] {
-    margin-right: 8px;
-    cursor: pointer;
-    width: 18px;
-    height: 18px;
-    vertical-align: middle;
-}
-
-/* Color Set Group */
-.color-set-group {
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.color-set-group legend {
-    font-weight: 600;
-    padding: 0 10px;
-    color: #333;
-}
-
-.color-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-}
-
-.color-option {
-    display: flex;
-    align-items: center;
-}
-
-.color-option input {
-    margin-right: 8px;
-    cursor: pointer;
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-}
-
-.color-label {
-    font-family: 'Consolas', monospace;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Custom Colors */
-.custom-colors-controls {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 2px dashed #e0e0e0;
-}
-
-.color-picker-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    flex-wrap: wrap;
-}
-
-.color-picker-container input[type="color"] {
-    width: 50px;
-    height: 50px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.custom-colors-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.color-swatch {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.2s;
-}
-
-.color-swatch:hover {
-    transform: scale(1.1);
-}
-
-.color-swatch:hover::after {
-    content: '×';
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: #ff4757;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-
-/* Buttons */
-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-right: 10px;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-button:active {
-    transform: translateY(0);
-}
-
-/* Display Panel */
-.display-panel {
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px;
-    min-height: 150px;
-    max-height: 300px;
-    overflow-y: auto;
-    background-color: #fcfcfe;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-family: 'Consolas', monospace;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1.5;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-}
-
-.char-span {
-    display: inline-block;
-}
-
-.space-char {
-    display: inline-block;
-    min-width: 8px;
-}
-
-/* Notification */
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 12px 24px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 6px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-.notification.show {
-    opacity: 1;
-}
-
-/* Usage Section */
-.usage-section {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 25px;
-}
-
-.usage-section h3 {
-    margin-top: 0;
-    color: #333;
-    font-size: 18px;
-    margin-bottom: 15px;
-}
-
-.usage-steps {
-    display: grid;
-    gap: 12px;
-}
-
-.usage-step {
-    display: flex;
-    align-items: start;
-    background: white;
-    padding: 12px;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.step-number {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin-right: 12px;
-    flex-shrink: 0;
-    font-size: 14px;
-}
-
-.step-text {
-    flex: 1;
-    color: #555;
-    line-height: 1.6;
-}
-
-/* Stats Grid */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-/* Table Styles */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-thead {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-th {
-    padding: 12px;
-    text-align: left;
-    font-weight: 600;
-}
-
-th.center {
-    text-align: center;
-}
-
-tbody tr {
-    border-bottom: 1px solid #e0e0e0;
-}
-
-tbody tr:hover {
-    background-color: #f8f9fa;
-}
-
-td {
-    padding: 4px;
-}
-
-td.center {
-    text-align: center;
-}
-
-td.name {
-    font-weight: 600;
-}
-
-/* Role and Element Badges */
-.role-badge {
-    white-space: nowrap;
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
-}
-
-.role-badge.tank {
-    background: #0096A0;
-}
-
-.role-badge.dps {
-    background: #C84616;
-}
-
-.element-badge {
-    display: inline-block;
-    white-space: nowrap;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
-    margin-left: 5px;
-}
-
-.element-badge.water {
-    background: linear-gradient(135deg, #4FC3F7 0%, #0288D1 100%);
-}
-
-.element-badge.fire {
-    background: linear-gradient(135deg, #FF7043 0%, #D32F2F 100%);
-}
-
-.element-badge.earth {
-    background: linear-gradient(135deg, #8D6E63 0%, #5D4037 100%);
-}
-
-.element-badge.electric {
-    background: linear-gradient(135deg, #FFD54F 0%, #F57C00 100%);
-}
-
-/* Delete Button */
-.delete-btn {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    margin: 0;
-}
-
-.delete-btn:hover {
-    transform: scale(1.05);
-}
-
-.table-wrapper {
-    overflow-x: auto;
-    margin: 30px 0;
-}
-
-.empty-state {
-    padding: 30px;
-    text-align: center;
-    color: #999;
-}
-
-/* Calculate Section */
-.calculate-section {
-    text-align: center;
-    margin: 30px 0;
-}
-
-.calculate-section button {
-    font-size: 18px;
-    padding: 15px 40px;
-}
-
-.calculation-warning {
-    margin-top: 15px;
-    padding: 12px;
-    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
-    border: 2px solid #ffc107;
-    border-radius: 6px;
-    color: #856404;
-    font-weight: 600;
-}
-
-/* Squad Results */
-.squads-results {
-    display: none;
-    margin-top: 30px;
-}
-
-.squads-results h3 {
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 22px;
-}
-
-.squads-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.squad-card {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 2px solid #b39ddb;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.squad-card:hover {
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-}
-
-.squad-card h4 {
-    color: #667eea;
-    margin: 0 0 15px 0;
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.squad-stats {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border: 2px solid #b39ddb;
-}
-
-.stat-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid #e0e0e0;
-    font-size: 14px;
-}
-
-.stat-row:last-child {
-    border-bottom: none;
-}
-
-.stat-label {
-    font-weight: 600;
-    color: #667eea;
-}
-
-.stat-value {
-    font-weight: 700;
-    color: #333;
-}
-
-.squad-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.squad-card ul li {
-    background: white;
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    border-radius: 6px;
-    color: #333;
-    font-weight: 500;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    border-left: 3px solid #667eea;
-    transition: transform 0.2s;
-}
-
-.squad-card ul li:hover {
-    transform: translateX(4px);
-}
-
-/* Switch Field */
-.switch-field {
-    display: flex;
-    margin-bottom: 36px;
-    user-select: none;
-}
-
-.switch-field input {
-    position: absolute !important;
-    clip: rect(0, 0, 0, 0);
-    height: 1px;
-    width: 1px;
-    border: 0;
-    overflow: hidden;
-}
-
-.switch-field label {
-    background-color: #e4e4e4;
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 18px;
-    line-height: 1;
-    text-align: center;
-    padding: 8px 16px;
-    margin-right: -1px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    transition: all 0.1s ease-in-out;
-}
-
-.switch-field label:hover {
-    cursor: pointer;
-}
-
-.switch-field input:checked + label {
-    background-color: #aaa5ea;
-    box-shadow: none;
-    color: white;
-}
-
-.switch-field label:first-of-type {
-    border-radius: 4px 0 0 4px;
-    border-right-width: 2px;
-}
-
-.switch-field label:last-of-type {
-    border-radius: 0 4px 4px 0;
-}
-
-.element-btn {
-    flex: 1;
-    min-width: 100px;
-    padding: 12px 16px;
-    border: 2px solid #e0e0e0;
-    background: white;
-    color: #666;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-input:checked + label.water {
-    background: linear-gradient(135deg, #4FC3F7 0%, #0288D1 100%);
-    color: white;
-    border-color: #0288D1;
-    box-shadow: 0 4px 12px rgba(2, 136, 209, 0.4);
-}
-
-input:checked + label.fire {
-    background: linear-gradient(135deg, #FF7043 0%, #D32F2F 100%);
-    color: white;
-    border-color: #D32F2F;
-    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
-}
-
-input:checked + label.earth {
-    background: linear-gradient(135deg, #8D6E63 0%, #5D4037 100%);
-    color: white;
-    border-color: #5D4037;
-    box-shadow: 0 4px 12px rgba(93, 64, 55, 0.4);
-}
-
-input:checked + label.electric {
-    background: linear-gradient(135deg, #FFD54F 0%, #F57C00 100%);
-    color: white;
-    border-color: #F57C00;
-    box-shadow: 0 4px 12px rgba(245, 124, 0, 0.4);
-}
-
-.tip-box {
-    background: linear-gradient(135deg, #fff7d6 0%, #ffe8a3 100%);
-    border-left: 4px solid #ffb400;
-    padding: 15px 18px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    color: #5a4a00;
-    font-size: 15px;
-    line-height: 1.6;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-
-.collapsible-tip {
-    margin-bottom: 25px;
-}
-
-.collapsible-toggle {
-    width: 100%;
-    text-align: left;
-    background: linear-gradient(135deg, #fff7d6 0%, #ffe8a3 100%);
-    border: none;
-    padding: 12px 16px;
-    border-left: 4px solid #ffb400;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #5a4a00;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    transition: background 0.2s;
-}
-
-.collapsible-toggle:hover {
-    background: linear-gradient(135deg, #ffefb3 0%, #ffdd7a 100%);
-}
-
-.collapsible-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease;
-    background: #fffbe6;
-    padding: 0 16px;
-    border-left: 4px solid #ffb400;
-    border-radius: 0 0 8px 8px;
-}
-
-.collapsible-content p {
-    color: #5a4a00;
-    margin: 12px 0;
-    line-height: 1.6;
-}
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.55);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
-}
-
-.modal-window {
-    background: white;
-    width: 90%;
-    max-width: 420px;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.25);
-    animation: fadeIn 0.25s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-.modal-window h3 {
-    margin: 0 0 10px 0;
-    color: #667eea;
-    font-size: 22px;
-}
-
-.modal-window p {
-    color: #444;
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.modal-btn {
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 15px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: none;
-}
-
-.modal-btn.confirm {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.modal-btn.cancel {
-    background: #ddd;
-    color: #333;
-}
-
-.modal-btn:hover {
-    transform: translateY(-2px);
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    .container {
-        padding: 20px;
+// ========================================================
+// PAGE NAVIGATION
+// ========================================================
+function showPage(pageId, linkElement) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(pageId).classList.add("active");
+    document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active"));
+    linkElement.classList.add("active");
+}
+
+// ========================================================
+// COLORED TEXT GENERATOR
+// ========================================================
+
+// Color set definitions
+const colorSets = {
+    "Rainbow": [
+        "#FF0000", "#FF4500", "#FF8C00", "#FFA500", "#FFD700", "#FFFF00",
+        "#9ACD32", "#32CD32", "#008000", "#00CED1", "#1E90FF", "#0000FF",
+        "#4B0082", "#8B00FF", "#9400D3", "#EE82EE", "#FF1493"
+    ],
+    "Blues": [
+        "#4A90E2", "#3579D6", "#2467C9", "#1657BC", "#0D47A1", "#0B3E8A",
+        "#093676", "#072D62", "#062652", "#051F42", "#041A36", "#031428"
+    ],
+    "Greens": [
+        "#4CAF50", "#43A047", "#388E3C", "#2E7D32", "#276C2B", "#205C24",
+        "#1A4D1E", "#144018", "#0F3413", "#0B2A0F", "#081F0B", "#051706"
+    ],
+    "Reds": [
+        "#FF6F61", "#FF574A", "#F44336", "#E53935", "#D32F2F", "#C62828",
+        "#B71C1C", "#A11919", "#8B1616", "#751212", "#5E0E0E", "#470A0A"
+    ],
+    "Purples": [
+        "#DDA0DD", "#C586E8", "#B06FE3", "#9B59D0", "#8E44AD", "#7D3C98",
+        "#6C3483", "#5B2C6F", "#4A245A", "#3A1D46", "#2A1633", "#1B0E20"
+    ],
+    "Oranges": [
+        "#FF4500", "#FF5722", "#FF6347", "#FF7043", "#FF8C00", "#FFA500",
+        "#FFB347", "#FFC000", "#FFD700", "#FFAA00", "#FF9500", "#FF8000"
+    ],
+    "BluePurple": [
+        "#0078FF", "#1464FF", "#2850FF", "#3C3CFF", "#5028FF", "#6414FF", "#7800FF"
+    ],
+    "Custom": []
+};
+
+let customColors = [];
+
+// Get DOM elements
+const textInput = document.getElementById('textInput');
+const colorSetRadios = document.getElementsByName('colorSet');
+const copyButton = document.getElementById('copyButton');
+const displayPanel = document.getElementById('displayPanel');
+const notification = document.getElementById('notification');
+const customColorsControls = document.getElementById('customColorsControls');
+const colorPicker = document.getElementById('colorPicker');
+const addColorBtn = document.getElementById('addColorBtn');
+const clearColorsBtn = document.getElementById('clearColorsBtn');
+const customColorsList = document.getElementById('customColorsList');
+const sizeSelect = document.getElementById('sizeSelect');
+const waveCheckbox = document.getElementById('waveCheckbox');
+
+// Get selected color set
+function getSelectedColorSet() {
+    for (const radio of colorSetRadios) {
+        if (radio.checked) {
+            return radio.value;
+        }
+    }
+    return "Rainbow";
+}
+
+// Calculate color index
+function getColorIndex(index, n) {
+    if (n === 0) return 0;
+    const p = index % (2 * n);
+    return (p <= n) ? p : (2 * n - p);
+}
+
+// Create colored label text
+function createColoredLabel(text, colors) {
+    const container = document.createElement('span');
+    container.className = 'color-label';
+    
+    const charArray = text.split('');
+    for (let i = 0; i < charArray.length; i++) {
+        const colorIndex = getColorIndex(i, colors.length - 1);
+        const charSpan = document.createElement('span');
+        charSpan.className = 'char-span';
+        charSpan.textContent = charArray[i];
+        charSpan.style.color = colors[colorIndex];
+        container.appendChild(charSpan);
     }
     
-    h1 {
-        font-size: 24px;
-    }
-    
-    .color-options {
-        grid-template-columns: 1fr;
-    }
-    
-    .color-picker-container {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .color-picker-container button {
-        margin-right: 0;
-        margin-bottom: 8px;
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    table {
-        font-size: 14px;
-    }
-    
-    th, td {
-        padding: 8px;
-    }
-    
-    .squads-grid {
-        grid-template-columns: 1fr;
+    return container;
+}
+
+// Update all color labels
+function updateColorLabels() {
+    const labels = {
+        "Rainbow": document.getElementById('labelRainbow'),
+        "Blues": document.getElementById('labelBlues'),
+        "Greens": document.getElementById('labelGreens'),
+        "Reds": document.getElementById('labelReds'),
+        "Purples": document.getElementById('labelPurples'),
+        "Oranges": document.getElementById('labelOranges'),
+        "BluePurple": document.getElementById('labelBluePurple'),
+        "Custom": document.getElementById('labelCustom')
+    };
+
+    for (const [setName, labelElement] of Object.entries(labels)) {
+        const colors = colorSets[setName];
+        const text = labelElement.textContent || labelElement.innerText;
+        labelElement.innerHTML = '';
+        const coloredText = createColoredLabel(text, colors);
+        labelElement.appendChild(coloredText);
     }
 }
+
+// Calculate wave size for a character
+function getWaveSize(index, baseSize, waveAmplitude = 10) {
+    const waveFrequency = 0.3;
+    const sizeVariation = Math.sin(index * waveFrequency) * waveAmplitude;
+    return Math.round(baseSize + sizeVariation);
+}
+
+// Refresh displayed text
+function refreshText() {
+    displayPanel.innerHTML = '';
+    
+    const text = textInput.value;
+    if (!text) return;
+    
+    const selectedSet = getSelectedColorSet();
+    const colors = selectedSet === "Custom" ? customColors : colorSets[selectedSet];
+    if (colors.length === 0) return;
+    
+    const selectedSize = parseInt(sizeSelect.value);
+    const isWaveMode = waveCheckbox.checked;
+    const lines = text.split('\n');
+    
+    for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+        const line = lines[lineIndex];
+        const charArray = line.split('');
+        let currentLine = document.createElement('div');
+        displayPanel.appendChild(currentLine);
+        
+        for (let i = 0; i < charArray.length; i++) {
+            const colorIndex = getColorIndex(i, colors.length - 1);
+            const char = charArray[i];
+            const charSpan = document.createElement('span');
+            charSpan.className = 'char-span';
+            
+            if (char === ' ') {
+                charSpan.className += ' space-char';
+                charSpan.innerHTML = '&nbsp;';
+            } else {
+                charSpan.textContent = char;
+            }
+            
+            charSpan.style.color = colors[colorIndex];
+            
+            let factor = 0.7;
+            if (isWaveMode) {
+                const waveSize = getWaveSize(i, selectedSize);
+                charSpan.style.fontSize = waveSize * factor + 'px';
+            } else {
+                charSpan.style.fontSize = selectedSize * factor + 'px';
+            }
+            
+            currentLine.appendChild(charSpan);
+        }
+        
+        handleLineWrapping(currentLine);
+    }
+}
+
+// Handle line wrapping
+function handleLineWrapping(lineElement) {
+    const panelWidth = displayPanel.clientWidth - 30;
+    const chars = lineElement.querySelectorAll('.char-span');
+    let currentWidth = 0;
+    let wrapIndex = -1;
+    
+    for (let i = 0; i < chars.length; i++) {
+        const charWidth = chars[i].offsetWidth;
+        
+        if (currentWidth + charWidth > panelWidth) {
+            for (let j = i - 1; j >= 0; j--) {
+                if (chars[j].classList.contains('space-char')) {
+                    wrapIndex = j;
+                    break;
+                }
+            }
+            if (wrapIndex === -1) wrapIndex = i - 1;
+            break;
+        }
+        currentWidth += charWidth;
+    }
+    
+    if (wrapIndex !== -1 && wrapIndex < chars.length - 1) {
+        const newLine = document.createElement('div');
+        const charsToMove = Array.from(chars).slice(wrapIndex + 1);
+        
+        charsToMove.forEach(char => {
+            lineElement.removeChild(char);
+            newLine.appendChild(char);
+        });
+        
+        displayPanel.insertBefore(newLine, lineElement.nextSibling);
+        handleLineWrapping(newLine);
+    }
+}
+
+// Add custom color
+function addCustomColor(color) {
+    customColors.push(color);
+    colorSets.Custom = customColors;
+    updateCustomColorsDisplay();
+    updateColorLabels();
+    refreshText();
+}
+
+// Remove custom color
+function removeCustomColor(index) {
+    customColors.splice(index, 1);
+    colorSets.Custom = customColors;
+    updateCustomColorsDisplay();
+    updateColorLabels();
+    refreshText();
+}
+
+// Clear all custom colors
+function clearCustomColors() {
+    customColors = [];
+    colorSets.Custom = customColors;
+    updateCustomColorsDisplay();
+    updateColorLabels();
+    refreshText();
+}
+
+// Update custom colors display
+function updateCustomColorsDisplay() {
+    customColorsList.innerHTML = '';
+    customColors.forEach((color, index) => {
+        const swatch = document.createElement('div');
+        swatch.className = 'color-swatch';
+        swatch.style.backgroundColor = color;
+        swatch.title = `Click to remove ${color}`;
+        swatch.addEventListener('click', () => removeCustomColor(index));
+        customColorsList.appendChild(swatch);
+    });
+}
+
+// Copy to clipboard
+function copyToClipboard() {
+	gtag('event', 'copy_colored_text_to_clipboard', {
+  		event_category: 'squad_calculator',
+  		event_label: 'Copy to clipboard clicked'
+	});
+    const text = textInput.value;
+    if (!text) return;
+    
+    const selectedSet = getSelectedColorSet();
+    const colors = selectedSet === "Custom" ? customColors : colorSets[selectedSet];
+    
+    if (colors.length === 0) {
+		showModalConfirm("Please add at least one color to the custom set first!", "Error");
+        return;
+    }
+    
+    const selectedSize = parseInt(sizeSelect.value);
+    const actualSize = selectedSize;
+    const isWaveMode = waveCheckbox.checked;
+    const lines = text.split('\n');
+    let result = '';
+    
+    for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+        const line = lines[lineIndex];
+        const charArray = line.split('');
+        
+        for (let i = 0; i < charArray.length; i++) {
+            const colorIndex = getColorIndex(i, colors.length - 1);
+            const char = charArray[i];
+            const color = colors[colorIndex];
+            
+            if (char.match(/\S/)) {
+                if (isWaveMode) {
+                    const waveSize = getWaveSize(i, actualSize);
+                    result += `<size=${waveSize}><${color}>${char}</size>`;
+                } else {
+                    result += `<${color}>${char}`;
+                }
+            } else {
+                result += char;
+            }
+        }
+        
+        if (lineIndex < lines.length - 1) {
+            result += '\n';
+        }
+    }
+    
+    if (!isWaveMode && selectedSize > 6) {
+        result = `<size=${actualSize}>${result}</size>`;
+    }
+    
+    navigator.clipboard.writeText(result).then(() => {
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+		showModalConfirm('Failed to copy to clipboard. Please try again.', "Error");
+    });
+}
+
+// Event listeners for text generator
+sizeSelect.addEventListener('change', refreshText);
+waveCheckbox.addEventListener('change', refreshText);
+textInput.addEventListener('input', refreshText);
+
+for (const radio of colorSetRadios) {
+    radio.addEventListener('change', function() {
+        customColorsControls.style.display = this.value === "Custom" ? 'block' : 'none';
+        refreshText();
+    });
+}
+
+addColorBtn.addEventListener('click', () => addCustomColor(colorPicker.value));
+clearColorsBtn.addEventListener('click', clearCustomColors);
+copyButton.addEventListener('click', copyToClipboard);
+window.addEventListener('resize', refreshText);
+
+// ========================================================
+// SQUAD CALCULATOR
+// ========================================================
+
+const STORAGE_KEY = 'palmonPals';
+
+function formatNumber(num) {
+    return num.toLocaleString('en-US'); // 1,234,567
+}
+
+// Load pals from localStorage
+function loadPals() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+}
+
+// Save pals to localStorage
+function savePals(pals) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(pals));
+}
+
+// Get element icon
+function getElementIcon(element) {
+    const lcElement = element.toLowerCase();
+    const icons = {
+        'water': '💧',
+        'fire': '🔥',
+        'earth': '🌍',
+        'electric': '⚡'
+    };
+    return icons[lcElement] || '';
+}
+
+// Get role icon
+function getRoleIcon(role) {
+    const lcRole = role.toLowerCase();
+    const icons = {
+        'dps': '⚔️',
+        'tank': '🛡️'
+    };
+    return icons[lcRole] || '';
+}
+
+// Render pals table
+function renderPalsTable() {
+    const pals = loadPals();
+    const tbody = document.getElementById('palsTableBody');
+    
+    if (pals.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No pals added yet. Add your first pal above!</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = '';
+    pals.forEach((pal, index) => {
+        const row = document.createElement('tr');
+        const elementClass = pal.element.toLowerCase();
+        row.innerHTML = `
+            <td class="name">${pal.name}</td>
+            <td class="center">${formatNumber(pal.attack)}</td>
+            <td class="center">${formatNumber(pal.defense)}</td>
+            <td class="center">${formatNumber(pal.hp)}</td>
+            <td class="center">${formatNumber(pal.power)}</td>
+            <td class="center"><span class="role-badge ${pal.role.toLowerCase()}">${getRoleIcon(pal.role)} ${pal.role}</span></td>
+            <td class="center"><span class="element-badge ${elementClass}">${getElementIcon(pal.element)} ${pal.element}</span></td>
+            <td class="center">
+                <button class="delete-btn" onclick="deletePal(${index})">Delete</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// Add pal
+function addPal() {
+    const name = document.getElementById('palName').value.trim();
+    const attack = parseInt(document.getElementById('palAttack').value) || 0;
+    const defense = parseInt(document.getElementById('palDefense').value) || 0;
+    const hp = parseInt(document.getElementById('palHP').value) || 0;
+    const power = parseInt(document.getElementById('palPower').value) || 0;
+    const role = document.querySelector('input[name="pal_role"]:checked').value;
+    const element = document.querySelector('input[name="pal_element"]:checked').value;
+    
+    if (!name) {
+		showModalConfirm('Please enter a pal name!', "Error");
+        return;
+    }
+    
+    const pals = loadPals();
+    pals.push({ name, attack, defense, hp, power, role, element });
+    savePals(pals);
+    renderPalsTable();
+    
+    // Clear form
+    document.getElementById('palName').value = '';
+    document.getElementById('palAttack').value = '';
+    document.getElementById('palDefense').value = '';
+    document.getElementById('palHP').value = '';
+    document.getElementById('palPower').value = '';
+    document.getElementById('radio-tank').checked = false;
+    document.getElementById('radio-dps').checked = true;
+    document.getElementById('radio-water').checked = true;
+    document.getElementById('radio-fire').checked = false;
+    document.getElementById('radio-earth').checked = false;
+    document.getElementById('radio-electric').checked = false;
+    
+    document.getElementById('palName').focus();
+}
+
+// Delete pal
+async function deletePal(index) {
+	const ok = await showModalConfirm("Delete this pal?", "Delete Pal");
+	if (!ok) return;
+	
+    const pals = loadPals();
+    pals.splice(index, 1);
+    savePals(pals);
+    renderPalsTable();    
+}
+
+// Calculate combinations count
+function calculateCombinationsCount(n, k) {
+    if (k > n) return 0;
+    if (k === 0 || k === n) return 1;
+    
+    let result = 1;
+    for (let i = 0; i < k; i++) {
+        result *= (n - i);
+        result /= (i + 1);
+    }
+    return Math.round(result);
+}
+
+// Fill squad list element with stats
+function fillSquadListElement(squad, listElement, statsElement, stats) {
+    listElement.innerHTML = '';
+    squad.forEach(pal => {
+        const li = document.createElement('li');
+        li.textContent = pal.name;
+        listElement.appendChild(li);
+    });
+    
+    // Add stats display
+    statsElement.innerHTML = `
+        <div class="stat-row">
+            <span class="stat-label">⚔️ Total Attack:</span>
+            <span class="stat-value">${formatNumber(Math.round(stats.attack))}</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">🛡️ Total Defense:</span>
+            <span class="stat-value">${formatNumber(Math.round(stats.defense))}</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">❤️ Total HP:</span>
+            <span class="stat-value">${formatNumber(Math.round(stats.hp))}</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">⚡ Total Power:</span>
+            <span class="stat-value">${formatNumber(Math.round(stats.power))}</span>
+        </div>
+    `;
+}
+
+// Find optimal squad
+function findOptimalSquad(pals) {
+    const SQUAD_SIZE = 7;
+    
+    const elementBonusMap = {
+        0: 0.0, 1: 0.0, 2: 0.0, 3: 0.05, 4: 0.10, 5: 0.20, 6: 0.25, 7: 0.30
+    };
+    
+    function applyRoleBonus(pal) {
+        const stats = { ...pal };
+        if (pal.role === 'DPS') {
+            stats.attack *= 1.30;
+        } else if (pal.role === 'Tank') {
+            stats.defense *= 1.20;
+            stats.hp *= 1.20;
+        }
+        return stats;
+    }
+    
+    function getElementBonus(squad) {
+        const elementCounts = {};
+        squad.forEach(pal => {
+            elementCounts[pal.element] = (elementCounts[pal.element] || 0) + 1;
+        });
+        const maxCount = Math.max(...Object.values(elementCounts));
+        return elementBonusMap[maxCount] || 0;
+    }
+    
+    function applyElementBonus(squad) {
+        const bonus = getElementBonus(squad);
+        return squad.map(pal => ({
+            ...pal,
+            attack: pal.attack * (1 + bonus),
+            defense: pal.defense * (1 + bonus),
+            hp: pal.hp * (1 + bonus),
+            power: pal.power * (1 + bonus)
+        }));
+    }
+    
+    function calculateSquadStats(squad) {
+        const squadWithBonuses = applyElementBonus(squad);
+        return squadWithBonuses.reduce((total, pal) => ({
+            power: total.power + pal.power,
+            attack: total.attack + pal.attack,
+            defense: total.defense + pal.defense,
+            hp: total.hp + pal.hp
+        }), { power: 0, attack: 0, defense: 0, hp: 0 });
+    }
+    
+    function* generateCombinations(arr, size) {
+        function* helper(start, combo) {
+            if (combo.length === size) {
+                yield combo;
+                return;
+            }
+            for (let i = start; i < arr.length; i++) {
+                yield* helper(i + 1, [...combo, arr[i]]);
+            }
+        }
+        yield* helper(0, []);
+    }
+    
+    const uniquePals = [];
+    const seenNames = new Set();
+    
+    for (const pal of pals) {
+        if (!seenNames.has(pal.name)) {
+            seenNames.add(pal.name);
+            uniquePals.push(applyRoleBonus(pal));
+        }
+    }
+    
+    if (uniquePals.length < SQUAD_SIZE) {
+        return null;
+    }
+    
+    let bestAttack = null;
+    let bestDefense = null;
+    let bestPower = null;
+    let bestOverall = null;
+    
+    let maxAttack = -Infinity;
+    let maxDefense = -Infinity;
+    let maxPower = -Infinity;
+    let maxOverall = -Infinity;
+    
+    for (const combo of generateCombinations(uniquePals, SQUAD_SIZE)) {
+        const stats = calculateSquadStats(combo);
+        const overallScore = stats.power + stats.attack + stats.defense;
+        
+        if (stats.attack > maxAttack) {
+            maxAttack = stats.attack;
+            bestAttack = { squad: applyElementBonus(combo), stats: stats };
+        }
+        
+        if (stats.defense > maxDefense) {
+            maxDefense = stats.defense;
+            bestDefense = { squad: applyElementBonus(combo), stats: stats };
+        }
+        
+        if (stats.power > maxPower) {
+            maxPower = stats.power;
+            bestPower = { squad: applyElementBonus(combo), stats: stats };
+        }
+        
+        if (overallScore > maxOverall) {
+            maxOverall = overallScore;
+            bestOverall = { squad: applyElementBonus(combo), stats: stats };
+        }
+    }
+    
+    return { bestAttack, bestDefense, bestPower, bestOverall };
+}
+
+// Calculate squads
+async function calculateSquads() {
+	const pals = loadPals();
+	gtag('event', 'calculate_squads', {
+  		event_category: 'squad_calculator',
+  		event_label: 'Calculate Optimal Squads clicked',
+		value: pals.length
+	});  
+	
+    if (pals.length < 7) {
+		showModalConfirm('You need at least 7 pals to generate squads!', "Warning");
+        return;
+    }
+    
+    const combCount = calculateCombinationsCount(pals.length, 7);
+    const warningDiv = document.getElementById('calculationWarning');
+    
+    if (combCount > 100000) {
+        warningDiv.style.display = 'block';
+		
+		const ok = await showModalConfirm(`This will calculate ${combCount.toLocaleString()} combinations and may take a while. Continue?`, "Warning");
+		if (!ok) {
+            warningDiv.style.display = 'none';
+            return;
+        }
+    }
+    
+    warningDiv.textContent = '⏳ Calculating optimal squads...';
+    warningDiv.style.display = 'block';
+    
+    setTimeout(() => {
+		
+		const start = performance.now();
+		const squads = findOptimalSquad(pals);
+		const duration = performance.now() - start;		
+		gtag('event', 'calculation_duration_ms', {
+			event_category: 'squad_calculator',
+			value: duration
+		});
+        
+        
+        if (!squads) {
+			showModalConfirm('Not enough unique pals to generate squads!', "Error");
+            warningDiv.style.display = 'none';
+            return;
+        }
+        
+        fillSquadListElement(
+            squads.bestAttack.squad,
+            document.getElementById('squadByAttackList'),
+            document.getElementById('squadByAttackStats'),
+            squads.bestAttack.stats
+        );
+        
+        fillSquadListElement(
+            squads.bestDefense.squad,
+            document.getElementById('squadByDefenseList'),
+            document.getElementById('squadByDefenseStats'),
+            squads.bestDefense.stats
+        );
+        
+        fillSquadListElement(
+            squads.bestPower.squad,
+            document.getElementById('squadByPowerList'),
+            document.getElementById('squadByPowerStats'),
+            squads.bestPower.stats
+        );
+        
+        fillSquadListElement(
+            squads.bestOverall.squad,
+            document.getElementById('squadByOverallList'),
+            document.getElementById('squadByOverallStats'),
+            squads.bestOverall.stats
+        );
+        
+        document.getElementById('squadsResults').style.display = 'block';
+        warningDiv.style.display = 'none';
+        
+        document.getElementById('squadsResults').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest' 
+        });
+    }, 100);
+}
+
+function showModalConfirm(message, title = "Confirm") {
+    return new Promise(resolve => {
+        const overlay = document.getElementById("modalOverlay");
+        const msg = document.getElementById("modalMessage");
+        const ttl = document.getElementById("modalTitle");
+
+        ttl.textContent = title;
+        msg.textContent = message;
+
+        overlay.style.display = "flex";
+
+        const confirmBtn = document.getElementById("modalConfirm");
+        const cancelBtn = document.getElementById("modalCancel");
+
+        const close = (value) => {
+            overlay.style.display = "none";
+            confirmBtn.onclick = null;
+            cancelBtn.onclick = null;
+            resolve(value);
+        };
+
+        confirmBtn.onclick = () => close(true);
+        cancelBtn.onclick = () => close(false);
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize text generator
+    textInput.focus();
+    updateColorLabels();
+    refreshText();
+    
+    // Initialize squad calculator
+    renderPalsTable();
+    
+    document.getElementById('addPalBtn').addEventListener('click', addPal);
+    document.getElementById('calculateSquadsBtn').addEventListener('click', calculateSquads);
+    
+    // Allow Enter key to add pal
+    ['palName', 'palAttack', 'palDefense', 'palHP', 'palPower'].forEach(id => {
+        document.getElementById(id).addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addPal();
+            }
+        });
+    });
+    
+    document.getElementById('palName').focus();
+});
+
+document.querySelectorAll('#calculationsDetailsToggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            btn.textContent = "Show Calculation Details ▼";
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            btn.textContent = "Hide Calculation Details ▲";
+        }
+    });
+});
+
+document.querySelectorAll('#imagePreviewToggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            content.style.display = "none";
+            btn.textContent = "Show Image Previews ▼";
+        } else {
+            content.style.display = "block";
+            content.style.maxHeight = content.scrollHeight + "px";
+            btn.textContent = "Hide Image Previews ▲";
+        }
+    });
+});
+
+document.querySelectorAll('.image-preview-item img').forEach(img => {
+    img.addEventListener('click', () => {
+        const modal = document.getElementById('imgModal');
+        const modalImg = document.getElementById('imgModalContent');
+        modalImg.src = img.src;
+        modal.style.display = 'flex';
+    });
+});
+
+document.getElementById('imgModalClose').addEventListener('click', () => {
+    document.getElementById('imgModal').style.display = 'none';
+});
