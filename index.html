@@ -20,6 +20,7 @@
     <div class="navbar">
         <a onclick="showPage('generatorPage', this)">Colored Text Generator</a>
         <a class="active" onclick="showPage('squadPage', this)">Squad Power Calculator</a>
+        <a onclick="showPage('downloadsPage', this)">Assets and scripts</a>
     </div>
 
     <!-- Page 1: Colored Text Generator -->
@@ -159,7 +160,6 @@
                 <div class="author">by Cetino aka Heineman</div>
             </div>
 			
-			<div>
             <div class="usage-section">
                 <h3>Add Your Pals</h3>
 				<div class="tip-box">
@@ -245,7 +245,7 @@
             <div class="squads-results" id="squadsResults">
                 <h3>Optimal Squad Formations</h3>
 				<div class="collapsible-tip">
-					<button class="collapsible-toggle">Show Calculation Details ▼</button>
+					<button class="collapsible-toggle" id="calculationsDetailsToggle">Show Calculation Details ▼</button>
 					<div class="collapsible-content">
 						<p><strong>How squads are calculated:</strong></p>
 						<p>Each squad consists of 7 of your entered pals and is evaluated under four criteria:
@@ -279,18 +279,140 @@
                 </div>
             </div>
         </div>
-    </div>   
-	<div id="modalOverlay" class="modal-overlay" style="display:none;">
-		<div class="modal-window">
-			<h3 id="modalTitle">Confirm</h3>
-			<p id="modalMessage"></p>
+    </div> 
 
-			<div class="modal-buttons">
-				<button id="modalCancel" class="modal-btn cancel">Cancel</button>
-				<button id="modalConfirm" class="modal-btn confirm">OK</button>
-			</div>
-		</div>
-	</div>
-	<script src="script.js"></script>
-</body>
+    <!-- Page 3: Downloads -->
+    <div id="downloadsPage" class="page">
+        <div class="container">
+            <div class="header">
+                <h1>Assets and scripts</h1>
+                <div class="author">by Cetino aka Heineman</div>
+            </div>
+            <hr>
+            <div class="download-section scripts-section">
+                <h2 class="section-title">Scripts / Scenarious</h2>
+                <p>Download the latest all Klick'r scenarios in a single, convenient package.</p>
+                
+                <a href="/AutoClickScripts.zip" class="download-all-btn primary-btn">
+                    Download All Scripts (.zip) (2.57mb)
+                </a>
+            
+                <div class="script-list-container">
+                    <p><strong>The .zip contains the following scripts:</strong></p>
+                    <ul class="file-list">
+                        <li><b>Auto join Hunt</b> - Autojoin rallies during flapnir hunt and tap guild help button when it appears.</li>
+                        <li><b>Auto join Rally</b> - Join all upcoming rallies and auto help guild mates.</li>
+                        <li><b>Assist</b> - Just click a "assist" button when found. Good for daily treasure hunt assists.</li>
+                        <li><b>Raid</b> - Just click a "raid" button when found. Good for daily treasure hunt raids.</li>
+                        <li><b>Breed</b> - Repeat the last breeding action in one tap.</li>
+                        <li><b>Train Armigo</b> - Train armingos, optional using speed ups.</li>
+                        <li><b>Collect Intel</b> - Collect all finished intel quests, only needed when you have slow fingers.</li>
+                        <li><b>Claim guild/event rewards</b> - Claim all rare guild or Wyrmslayer rewards.</li>
+                        <li><b>MapScanner</b> - Autoscroll the world map and notify and stop when a treasure ship or other condition is fullfilled.</li>
+                        <li><b>Snowkami Farm</b> - Searches Snowkamis and rallies them. Automatically uses AP poitions when needed.</li>
+                        <li><b>Heat</b> - Easy auto clicker to heat up other players.</li>
+                        <li><b>Enhance item to 20</b> - Selects auto ressource and taps 20 times "upgrade" on item.</li>
+                    </ul>
+                </div>
+            </div>            
+            <hr>            
+            <div class="download-section assets-section">
+                <h2 class="section-title">Image Assets</h2>
+                <p>This package contains high-resolution icons and picture assets of the game.</p>
+                
+                <a href="https://razorin91.ddns.net/Images.zip" class="download-all-btn primary-btn">
+                    Download texture Assets (.zip) (966mb)
+                </a>
+                
+                <div id="imgModal" class="img-modal" style="display:none;">
+                    <span id="imgModalClose">&times;</span>
+                    <img id="imgModalContent">
+                </div>
+
+                <div class="collapsible-tip">
+                    <p><strong>Sample images</strong></p>
+                        <div class="image-preview-grid">
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image001.png" alt="image001.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image002.png" alt="image002.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image003.png" alt="image003.png Preview" loading="lazy">
+                            </div>                        
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image004.png" alt="image004.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image005.png" alt="image005.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image006.png" alt="image006.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image007.png" alt="image007.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image008.png" alt="image008.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image009.png" alt="image009.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image010.png" alt="image010.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image011.png" alt="image011.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image012.png" alt="image012.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image013.png" alt="image013.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image014.png" alt="image014.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image015.png" alt="image015.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image016.png" alt="image016.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image017.png" alt="image017.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image018.png" alt="image018.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image019.png" alt="image019.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image020.png" alt="image020.png Preview" loading="lazy">
+                            </div>
+                            <div class="image-preview-item">
+                                <img src=".\AssetSamples\image021.png" alt="image021.png Preview" loading="lazy">
+                            </div>                            
+                        </div>
+                        <p class="preview-note">Showing a sample of 21 images. The full ZIP contains all assets.</p>
+                    </div>
+                </div>                
+            </div>            
+         </div>
+    </div>  
+  	<div id="modalOverlay" class="modal-overlay" style="display:none;">
+  		<div class="modal-window">
+  			<h3 id="modalTitle">Confirm</h3>
+  			<p id="modalMessage"></p>
+  
+  			<div class="modal-buttons">
+  				<button id="modalCancel" class="modal-btn cancel">Cancel</button>
+  				<button id="modalConfirm" class="modal-btn confirm">OK</button>
+  			</div>
+  		</div>
+  	</div>
+  	<script src="script.js"></script>
+  </body>
 </html>
