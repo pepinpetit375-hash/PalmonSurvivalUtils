@@ -41,6 +41,13 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
+@font-face {
+  font-family: 'UIFont';
+  src: url('UIFontR.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Navigation Bar */
 .navbar {
     position: fixed;
