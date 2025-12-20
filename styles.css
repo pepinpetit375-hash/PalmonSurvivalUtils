@@ -504,7 +504,7 @@ button:active {
     background-color: #fcfcfe;
     margin-top: 20px;
     margin-bottom: 20px;
-    font-family: 'Consolas', monospace;
+    font-family: 'UIFont', monospace;
     font-size: 18px;
     font-weight: bold;
     line-height: 1.5;
