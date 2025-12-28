@@ -119,8 +119,8 @@ function updateColorLabels() {
 }
 
 // Calculate wave size for a character
-function getWaveSize(index, baseSize, waveAmplitude = 13) {
-    const waveFrequency = 0.1;
+function getWaveSize(index, baseSize, waveAmplitude = 10) {
+    const waveFrequency = 0.4;
     const sizeVariation = Math.sin(index * waveFrequency) * waveAmplitude;
     return Math.round(baseSize + sizeVariation);
 }
