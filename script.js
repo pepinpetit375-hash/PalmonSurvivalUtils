@@ -42,6 +42,9 @@ const colorSets = {
     "BluePurple": [
         "#0078FF", "#1464FF", "#2850FF", "#3C3CFF", "#5028FF", "#6414FF", "#7800FF"
     ],
+	"Golden": [
+        "#fff5cc", "#ffe800", "#ffd566", "#ffc333", "#feb000", "#e7a000", "#cd8e00", "#987000", "#815f00", "#674e00"
+    ],
     "Custom": []
 };
 
@@ -106,6 +109,7 @@ function updateColorLabels() {
         "Purples": document.getElementById('labelPurples'),
         "Oranges": document.getElementById('labelOranges'),
         "BluePurple": document.getElementById('labelBluePurple'),
+		"Golden": document.getElementById('labelGolden'),		
         "Custom": document.getElementById('labelCustom')
     };
 
